@@ -1,0 +1,77 @@
+set editor="vim"
+set fast_reply="yes"
+set sort_aux=last-date-received
+set imap_user = "e-mail@domain.com"
+set smtp_url = "smtp://imap.domain.com/"
+set ssl_starttls = yes
+set from = "email@domain.com"
+alternates otheremail@domain.com
+set realname = "Bob Bobson"
+set folder = "imaps://mail.domain.com:993""
+set spoolfile = "+INBOX"
+set postponed="+Drafts"
+set record = "+Sent Items"
+set header_cache=~/.mutt/cache/headers
+set message_cachedir=~/.mutt/cache/bodies
+set certificate_file=~/.mutt/certificates
+set move = no
+set pager_index_lines = 15
+hdr_order Subject: From: To: Date: CC: BCC: Reply-To:
+alternative_order text/plain text/enriched text/html
+auto_view text/html
+set query_command="lbdbq %s"
+set beep_new
+set crypt_verify_sig = yes
+set crypt_replysignencrypted = yes
+set pgp_verify_sig = yes
+set pgp_auto_decode = yes
+set copy = yes
+bind editor <Tab> complete-query
+
+bind pager gg top
+bind pager G bottom
+bind pager down next-line
+bind pager up previous-line
+bind pager j next-line
+bind pager k previous-line
+bind pager { previous-page
+bind pager } next-page
+
+bind index gg first-entry
+bind index G last-entry
+bind index R group-reply
+bind index { previous-page
+bind index } next-page
+
+color index   brightgreen default ~N
+color index   red         default ~F
+color index   yellow      default ~P
+color index   default     red     ~D
+color header  brightmagenta default ^Subject:
+color header  green      default ^From:
+color header  green      default ^To:
+color header  brightblue default ^Date:
+color header  brightblue default ^CC:
+color header  brightblue default ^BCC:
+color body    brightblue default (http|ftp)s?://[\-\.\,/%~_:\;?\#a-zA-Z0-9=&]+
+color quoted  cyan       default
+color quoted1 magenta    default
+color quoted2 yellow     default
+
+
+set pgp_use_gpg_agent=yes
+set pgp_decode_command="gpg2 --status-fd=2 %?p?--passphrase-fd 0? --no-verbose --quiet --batch --output - %f"
+set pgp_verify_command="gpg2 --status-fd=2 --no-verbose --quiet --batch --output - --verify %s %f"
+set pgp_decrypt_command="gpg2 --status-fd=2 %?p?--passphrase-fd 0? --no-verbose --quiet --batch --output - %f"
+set pgp_sign_command="gpg2 --no-verbose --batch --quiet --output - %?p?--passphrase-fd 0? --armor --detach-sign --textmode %?a?-u %a? %f"
+set pgp_clearsign_command="gpg2 --no-verbose --batch --quiet --output - %?p?--passphrase-fd 0? --armor --textmode --clearsign %?a?-u %a? %f"
+set pgp_encrypt_only_command="/usr/lib/mutt/pgpewrap gpg2 --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust -- -r %r -- %f"
+set pgp_encrypt_sign_command="/usr/lib/mutt/pgpewrap gpg2 %?p?--passphrase-fd 0? --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust -- -r %r -- %f"
+set pgp_import_command="gpg2 --no-verbose --import %f"
+set pgp_export_command="gpg2 --no-verbose --export --armor %r"
+set pgp_verify_key_command="gpg2 --verbose --batch --fingerprint --check-sigs %r"
+set pgp_list_pubring_command="gpg2 --no-verbose --batch --quiet --with-colons --with-fingerprint --with-fingerprint --list-keys %r"
+set pgp_list_secring_command="gpg2 --no-verbose --batch --quiet --with-colons --with-fingerprint --with-fingerprint --list-secret-keys %r"
+set pgp_good_sign="^\\[GNUPG:\\] GOODSIG"
+
+
